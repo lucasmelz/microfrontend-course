@@ -1,5 +1,21 @@
 # microfrontend-course
 
+# Routing Requirements
+
+1. Both the container + individual sub-apps need routing features.
+2. Sub-apps might need to add in new pages/routes all the time.
+3. We might need to show two or more microfrontends at the same time.
+4. We want ot use off-the-shelf routing solutions
+5. We need navigation features for sub-apps in both hosted mode and in isolation.
+6. If different apps need to communicate information about routing, it should be done in as generic fashion as possible.
+
+## Routing architecture
+
+The most common way to set up routing in an app with a microfrontend architecture involves utilizing browser history within the main container and memory history within individual sub-applications. This approach addresses the challenge posed by the custom implementations of navigation libraries like React-Router, Angular Router, and Vue-Router, each offering its own version of browser history and memory history. By maintaining a single browser history instance at the container level, potential conflicts arising from multiple instances trying to update the URL in the address bar simultaneously are mitigated. Instead, memory history instances within sub-applications manage their own navigation paths independently, ensuring smoother navigation and preventing race conditions that could lead to issues down the line.
+
+![Routing architecture](./routing-approach.png)
+![Routing communication](./routing-communication.png)
+
 # AWS Setup and Configuration Cheetsheet
 
 ## S3 Bucket Creation and Configuration
