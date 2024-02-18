@@ -8,6 +8,7 @@ import {
 import Signin from "./components/Signin";
 import SignUp from "./components/Signup";
 
+// To prevent class name conflicts between projects
 const generateClassName = createGenerateClassName({
   productionPrefix: "au",
 });
