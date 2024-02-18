@@ -1,6 +1,73 @@
-# microfrontend-course
+# Microfrontend Course Project
 
-# Routing Requirements
+## About the project
+
+This is a template project for an app built with a microfrontend architecture. Webpack ModuleFederationPlugin is being used to provide and consume modules within the project, each module having its independent build process. There is a Container app that is making reference to all other sub-apps (Auth, Marketing and Dashboard). Container, Marketing and Auth are React applications, whereas Dashboard is a Vue app. Each of the subprojects has a pipeline configured for deployment on AWS when there is a change on the repo. You can find more instructions about the deployment to AWS [here](#aws-setup-and-configuration-cheetsheet).
+
+## How to run the project
+
+In summary, you need to access every subproject folder, install the dependencies and run all the projects. The container (main) app will run on port 8080.
+
+### Run the Marketing sub-app
+
+On the root folder of the project, run:
+
+```
+cd marketing
+npm install
+npm start
+```
+
+The Marketing app will be running on port 8081.
+
+### Run the Auth sub-app
+
+On the root folder of the project, run:
+
+```
+cd auth
+npm install
+npm start
+```
+
+The Auth app will be running on port 8082.
+
+### Run the Dashboard sub-app
+
+On the root folder of the project, run:
+
+```
+cd dashboard
+npm install
+npm start
+```
+
+The Dasboard app will be running on port 8083.
+
+### Run the Container sub-app
+
+On the root folder of the project, run:
+
+```
+npm install
+npm start
+```
+
+The Container app will be running on port 8080.
+
+## Project requirements
+
+1. Inflexible requirement: zero coupling between child projects.
+   1.1. No importing of functions/objects/classes, etc.
+   1.2. No shared state.
+   1.3. Shared libraries through microfrontends is ok.
+2. Inflexible requirement: near-zero coupling between container and child apps.
+   2.1. Container shouldn't assume that a child is using a particular framework.
+   2.2. Any necessary communication should be done with callbacks or simple events.
+3. Inflexible requirement: CSS from one project shouldn't affect another.
+4. Inflexible requirement: version control (monorepo vs separate) shouldn't have any impact on the overall project. Here we are using a monorepo but the same code and setup should work having each project in separate repos.
+
+## Routing Requirements
 
 1. Both the container + individual sub-apps need routing features.
 2. Sub-apps might need to add in new pages/routes all the time.
@@ -9,14 +76,14 @@
 5. We need navigation features for sub-apps in both hosted mode and in isolation.
 6. If different apps need to communicate information about routing, it should be done in as generic fashion as possible.
 
-## Routing architecture
+### Routing architecture
 
 The most common way to set up routing in an app with a microfrontend architecture involves utilizing browser history within the main container and memory history within individual sub-applications. This approach addresses the challenge posed by the custom implementations of navigation libraries like React-Router, Angular Router, and Vue-Router, each offering its own version of browser history and memory history. By maintaining a single browser history instance at the container level, potential conflicts arising from multiple instances trying to update the URL in the address bar simultaneously are mitigated. Instead, memory history instances within sub-applications manage their own navigation paths independently, ensuring smoother navigation and preventing race conditions that could lead to issues down the line.
 
 ![Routing architecture](./routing-approach.png)
 ![Routing communication](./routing-communication.png)
 
-# Notes around authentication
+## Notes around authentication
 
 - Auth app is for signing in/up users.
 - Auth app is not for enforcing permissions, allowing access to certain routes or figuring out if user is signed in.
@@ -27,9 +94,9 @@ The most common way to set up routing in an app with a microfrontend architectur
 
   ![Authentication approach](./authentication-approach.png)
 
-# AWS Setup and Configuration Cheetsheet
+## AWS Setup and Configuration Cheetsheet
 
-## S3 Bucket Creation and Configuration
+### S3 Bucket Creation and Configuration
 
 1. Go to AWS Management Console and use the search bar to find S3
 
@@ -82,7 +149,7 @@ The most common way to set up routing in an app with a microfrontend architectur
 
 25. Click Save changes
 
-## CloudFront setup
+### CloudFront setup
 
 1. Go to AWS Management Console and use the search bar to find CloudFront
 
@@ -112,7 +179,7 @@ The most common way to set up routing in an app with a microfrontend architectur
 
 14. Set HTTP Response Code to 200: OK
 
-## Create IAM user
+### Create IAM user
 
 1. Search for "IAM"
 
@@ -145,3 +212,10 @@ The most common way to set up routing in an app with a microfrontend architectur
 15. Scroll down and tick the "I understand..." check box and click "Next"
 
 16. Copy and/or download the Access Key ID and Secret Access Key to use for deployment.
+
+## Takeaways from the course
+
+1. Your requirements drive your architecture.
+2. Always ask yourself "if I have to change this in the future, will I have to change another app?"
+3. Don't forget to scope your CSS.
+4. MFE's might cause issues in production that you don't see in dev.
