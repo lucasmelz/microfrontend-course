@@ -16,6 +16,17 @@ The most common way to set up routing in an app with a microfrontend architectur
 ![Routing architecture](./routing-approach.png)
 ![Routing communication](./routing-communication.png)
 
+# Notes around authentication
+
+- Auth app is for signing in/up users.
+- Auth app is not for enforcing permissions, allowing access to certain routes or figuring out if user is signed in.
+- Two possible approaches for handling auth:
+
+  1. Each app is aware of auth.
+  2. **Centralize auth in Container (in this project we go with this one)**.
+
+  ![Authentication approach](./authentication-approach.png)
+
 # AWS Setup and Configuration Cheetsheet
 
 ## S3 Bucket Creation and Configuration
