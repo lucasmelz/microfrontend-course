@@ -49,6 +49,7 @@ The Dasboard app will be running on port 8083.
 On the root folder of the project, run:
 
 ```
+cd container
 npm install
 npm start
 ```
